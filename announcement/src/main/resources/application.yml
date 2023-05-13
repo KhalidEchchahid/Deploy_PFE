@@ -1,0 +1,51 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: announcement
+  datasource:
+    url: jdbc:postgresql://localhost:5433/announcement
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  rabbitmq:
+    addresses: localhost:5672
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: echchahidkhalid7@gmail.com
+#    password: 0609khalidana
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#      spring.mail.host=smtp.gmail.com
+#      spring.mail.port=587
+#      spring.mail.username=<Login User to SMTP server>
+#      spring.mail.password=<Login password to SMTP server>
+#      spring.mail.properties.mail.smtp.auth=true
+#      spring.mail.properties.mail.smtp.starttls.enable=true

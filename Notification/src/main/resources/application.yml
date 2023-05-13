@@ -1,0 +1,53 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: notifications
+  datasource:
+    url: jdbc:postgresql://localhost:5433/notifications
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: khalid.echchahid@usmba.ac.ma
+    password: dwzdjktclmuamslo
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  rabbitmq:
+    port: 5672
+    host: localhost
+    password: guest
+    username: guest
+    listener:
+      direct:
+        auto-startup: true
+      simple:
+        auto-startup: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+rabbitmq:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    internal-notification: internal.notification.routing-key

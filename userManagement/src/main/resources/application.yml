@@ -1,0 +1,40 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: userManagement
+  datasource:
+    url: jdbc:postgresql://localhost:5433/users
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+      file-size-threshold: 2KB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: khalid.echchahid@usmba.ac.ma
+    password: dwzdjktclmuamslo
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

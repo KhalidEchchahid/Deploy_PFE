@@ -1,0 +1,27 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: professorArticle
+  datasource:
+    url: jdbc:postgresql://localhost:5433/professor_article
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+      file-size-threshold: 2KB
+eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka

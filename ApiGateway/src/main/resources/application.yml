@@ -1,0 +1,102 @@
+server:
+  port: 8086
+#  address: 192.168.0.129
+
+spring:
+  application:
+    name: ApiGateway
+  datasource:
+    url: jdbc:postgresql://localhost:5433/users
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    open-in-view: false
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: StudentPublication
+          uri: lb://STUDENTPUBLICATION
+          predicates:
+            - Path=/api/v1/studentPublications/**
+          filters:
+            - AuthenticationFilter
+
+        - id: LettersServiceRequest
+          uri: lb://LETTERS
+          predicates:
+            - Path=/api/v1/letter_request/**
+          filters:
+            - AuthenticationFilter
+
+        - id: LetterService
+          uri: lb://LETTERS
+          predicates:
+            - Path=/api/v1/letters/**
+          filters:
+            - AuthenticationFilter
+
+        - id: ProfessorArticleWithAuth
+          uri: lb://PROFESSORARTICLE
+          predicates:
+            - Path=/api/v1/professorArticlesWithAuth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: ProfessorArticle
+          uri: lb://PROFESSORARTICLE
+          predicates:
+            - Path=/api/v1/professorArticles/**
+
+        - id: announcement
+          uri: lb://ANNOUNCEMENT
+          predicates:
+            - Path=/api/v1/announcements/**
+          filters:
+            - AuthenticationFilter
+
+        - id: userManagement
+          uri: lb://USERMANAGEMENT
+          predicates:
+            - Path=/api/v1/auth/**
+
+        - id: userManagementWithAuth
+          uri: lb://USERMANAGEMENT
+          predicates:
+            - Path=/api/v1/users/**
+          filters:
+            - AuthenticationFilter
+
+        - id: notifications
+          uri: lb://NOTIFICATIONS
+          predicates:
+            - Path=/api/v1/notifications/**
+          filters:
+            - AuthenticationFilter
+#        - id: userManagementWithAuth
+#          uri: lb://USERMANAGEMENT
+#          predicates:
+#            - Path=/api/v1/profiles/**
+
+
+
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
